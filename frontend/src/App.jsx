@@ -20,9 +20,9 @@ function App() {
       try {
         const res = await fetch("/api/auth/me");
         const data = await res.json();
-      if (data.error) return null;
+        if (data.error) return null;
         if (!res.ok) throw new Error(data.error || "Something went wrong");
-        console.log("authUser is here", data);
+        // console.log("authUser is here", data);
         return data;
       } catch (error) {
         console.log(error);
@@ -58,11 +58,11 @@ function App() {
         />
         <Route
           path="/notifications"
-          element={!authUser ? <NotificationPage /> : <Navigate to="/login" />}
+          element={authUser ? <NotificationPage /> : <Navigate to="/login" />}
         />
         <Route
           path="/profile/:username"
-          element={!authUser ? <ProfilePage /> : <Navigate to="/login" />}
+          element={authUser ? <ProfilePage /> : <Navigate to="/login" />}
         />
       </Routes>
       {authUser && <RightPanel />}
